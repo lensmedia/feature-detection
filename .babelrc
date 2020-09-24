@@ -1,0 +1,13 @@
+{
+    "sourceMaps": true,
+    "plugins": [],
+    "presets": [
+        ["@babel/preset-env", {
+            "modules": false,
+            "targets": "> 0.25%, not dead",
+            "useBuiltIns": "usage",
+            "corejs": 3
+        }],
+        "@babel/preset-typescript"
+    ]
+}
