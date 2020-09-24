@@ -31,6 +31,17 @@ export const userSelect = 'userSelect' in document.body.style;
 export const gradients = !u(document.body.dataset);
 export const customProperties = window.CSS && window.CSS.supports('color', 'var(--css-custom-property-test)');
 export const filters = !u(document.body.style.filter) || !u(document.body.style.webkitFilter);
+export const localStorage = (function() {
+    const test = 'lens-feature-detection';
+    try {
+        window.localStorage.setItem(test, test);
+        window.localStorage.removeItem(test);
+
+        return true;
+    } catch(e) { }
+
+    return false;
+})();
 
 export const tests = {
     requestAnimationFrame,
@@ -48,6 +59,7 @@ export const tests = {
     gradients,
     customProperties,
     filters,
+    localStorage,
 };
 
 export function test(...string): string[] {

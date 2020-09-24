@@ -1,7 +1,7 @@
 {
   "name": "feature-detection",
   "description": "JS/CSS Feature Testing Library used in various projects.",
-  "version": "1.0.0",
+  "version": "1.1.0",
 
   "author": "LENS Media B.V.",
   "license": "ISC",
