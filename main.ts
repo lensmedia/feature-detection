@@ -1,5 +1,11 @@
+const prefixes = ['-webkit-', '-moz-', '-o-', '-ms- '];
+
 function u(something) {
     return typeof(something) === 'undefined';
+}
+
+function createElement(what = 'div') {
+    return document.createElement(what);
 }
 
 // @ts-ignore JS Tests
@@ -7,7 +13,7 @@ export const audioContext = !u(window.AudioContext) || !u(window.webkitAudioCont
 export const requestAnimationFrame = !u(window.requestAnimationFrame) || !u(window.webkitRequestAnimationFrame);
 export const htmlAudioElement = !u(Audio);
 export const inlineSvg = (function() {
-    const el = document.createElement('div');
+    const el = createElement('div');
     el.innerHTML = '<svg/>';
 
     return 'http://www.w3.org/2000/svg' == (!u(SVGRect) && el.firstChild && el.firstChild.namespaceURI);
@@ -18,7 +24,7 @@ export const classList = 'classList' in document.body;
 export const querySelector = 'querySelector' in document.body;
 export const scrollIntoView = 'scrollIntoView' in document.body;
 export const dataset = (function () {
-    const el = document.createElement('div');
+    const el = createElement();
     el.setAttribute('data-a-b', 'c');
 
     return !!(el.dataset && el.dataset.aB === 'c');
@@ -43,6 +49,16 @@ export const localStorage = (function() {
     return false;
 })();
 
+export const calc = (function() {
+    const prop = 'width:';
+    const value = 'calc(10px);';
+    const el = createElement('a');
+
+    el.style.cssText = prop + prefixes.join(value + prop);
+
+    return !!el.style.length;
+})();
+
 export const tests = {
     requestAnimationFrame,
     audioContext,
@@ -59,6 +75,7 @@ export const tests = {
     gradients,
     customProperties,
     filters,
+    calc,
     localStorage,
 };
 

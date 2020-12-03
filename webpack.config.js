@@ -5,9 +5,9 @@ module.exports = {
     entry: path.resolve(__dirname, 'main.ts'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'lens-feature-detection.js',
+        filename: 'feature-detection.js',
         library: 'Features',
-        libraryTarget: 'var',
+        libraryTarget: 'umd',
     },
     module: {
         rules: [
