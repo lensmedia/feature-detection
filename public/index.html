@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>Feature Detection</title>
+
+        <style>
+            label {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hi, lens media feature detection lib</h1>
+        <p>Custom small lib because modernizr is missing some tests.</p>
+
+        <h2>Tests</h2>
+        <script src="feature-detection.js"></script>
+        <script>
+            for (var key in featureDetection.tests) {
+                var label = document.createElement('label');
+
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.readOnly = true;
+                checkbox.checked = featureDetection.tests[key];
+                label.appendChild(checkbox);
+
+                var text = document.createTextNode(key);
+                label.appendChild(text);
+
+                document.body.appendChild(label);
+            }
+        </script>
+    </body>
+</html>

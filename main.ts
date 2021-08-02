@@ -1,10 +1,12 @@
-const prefixes = ['-webkit-', '-moz-', '-o-', '-ms- '];
+const prefixes = ['', '-webkit-', '-moz-', '-o-', '-ms-'];
+
+const bs = document.body.style;
 
 function u(something) {
     return typeof(something) === 'undefined';
 }
 
-function createElement(what = 'div') {
+function createElement(what: string = 'div') {
     return document.createElement(what);
 }
 
@@ -30,13 +32,6 @@ export const dataset = (function () {
     return !!(el.dataset && el.dataset.aB === 'c');
 })();
 
-// @ts-ignore CSS Tests
-export const flexbox = document.body.style.flexBasis === '' || document.body.style.webkitFlexBasis === '' || document.body.style.msFlexBasis === '' || document.body.style.mozFlexBasis === '';
-export const pointerEvents = 'pointerEvents' in document.body.style;
-export const userSelect = 'userSelect' in document.body.style;
-export const gradients = !u(document.body.dataset);
-export const customProperties = window.CSS && window.CSS.supports('color', 'var(--css-custom-property-test)');
-export const filters = !u(document.body.style.filter) || !u(document.body.style.webkitFilter);
 export const localStorage = (function() {
     const test = 'lens-feature-detection';
     try {
@@ -49,37 +44,45 @@ export const localStorage = (function() {
     return false;
 })();
 
+// @ts-ignore CSS Tests
+export const flexbox = !u(bs.flexBasis) || !u(bs.webkitFlexBasis) || !u(bs.msFlexBasis) || !u(bs.mozFlexBasis);
+export const pointerEvents = !u(bs.pointerEvents);
+export const userSelect = !u(bs.userSelect) || !u(bs.webkitUserSelect);
+export const gradients = !u(document.body.dataset);
+export const customProperties = window.CSS && window.CSS.supports('color', 'var(--css-custom-property-test)');
+export const filters = !u(bs.filter) || !u(bs.webkitFilter);
+
 export const calc = (function() {
     const prop = 'width:';
     const value = 'calc(10px);';
     const el = createElement('a');
 
-    el.style.cssText = prop + prefixes.join(value + prop);
+    el.style.cssText = prop + prefixes.join(value + prop) + value;
 
     return !!el.style.length;
 })();
 
 export const tests = {
-    requestAnimationFrame,
     audioContext,
+    calc,
+    classList,
+    customProperties,
+    dataset,
+    filters,
+    flexbox,
+    gradients,
     htmlAudioElement,
     inlineSvg,
     isArray,
-    classList,
-    querySelector,
-    dataset,
-    scrollIntoView,
-    flexbox,
-    pointerEvents,
-    userSelect,
-    gradients,
-    customProperties,
-    filters,
-    calc,
     localStorage,
+    pointerEvents,
+    querySelector,
+    requestAnimationFrame,
+    scrollIntoView,
+    userSelect,
 };
 
-export function test(...string): string[] {
+export default function test(...string): string[] {
     const failed = [];
     for (let i = 0; i < arguments.length; i++) {
         const arg = arguments[i];

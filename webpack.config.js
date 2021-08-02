@@ -1,13 +1,14 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+    mode: 'production',
     entry: path.resolve(__dirname, 'main.ts'),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'feature-detection.js',
-        library: 'Features',
         libraryTarget: 'umd',
+        globalObject: 'this',
+        library: 'featureDetection',
     },
     module: {
         rules: [
@@ -21,7 +22,4 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-    ],
 };
